@@ -1,5 +1,10 @@
 FROM debian:jessie
 
+# update package repository to archive
+RUN cp -a /etc/apt/sources.list /etc/apt/sources.list.org \
+	&& echo 'deb http://archive.debian.org/debian jessie main' > /etc/apt/sources.list \
+	&& echo 'deb http://archive.debian.org/debian-security jessie/updates main' >> /etc/apt/sources.list
+
 # persistent / runtime deps
 RUN apt-get update && apt-get install -y --force-yes ca-certificates curl librecode0 libsqlite3-0 libxml2 --no-install-recommends && rm -r /var/lib/apt/lists/*
 
